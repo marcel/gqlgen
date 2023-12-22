@@ -1,10 +1,11 @@
 package graphql
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"strconv"
+
+	stdjson "encoding/json"
 )
 
 func MarshalUint(i uint) Marshaler {
@@ -22,7 +23,7 @@ func UnmarshalUint(v interface{}) (uint, error) {
 		return uint(v), nil
 	case int64:
 		return uint(v), nil
-	case json.Number:
+	case stdjson.Number:
 		u64, err := strconv.ParseUint(string(v), 10, 64)
 		return uint(u64), err
 	default:
@@ -44,7 +45,7 @@ func UnmarshalUint64(v interface{}) (uint64, error) {
 		return uint64(v), nil
 	case int64:
 		return uint64(v), nil
-	case json.Number:
+	case stdjson.Number:
 		return strconv.ParseUint(string(v), 10, 64)
 	default:
 		return 0, fmt.Errorf("%T is not an uint", v)
@@ -69,7 +70,7 @@ func UnmarshalUint32(v interface{}) (uint32, error) {
 		return uint32(v), nil
 	case int64:
 		return uint32(v), nil
-	case json.Number:
+	case stdjson.Number:
 		iv, err := strconv.ParseUint(string(v), 10, 32)
 		if err != nil {
 			return 0, err

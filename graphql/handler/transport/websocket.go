@@ -3,7 +3,6 @@ package transport
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -12,11 +11,12 @@ import (
 	"sync"
 	"time"
 
+	"github.com/99designs/gqlgen/graphql"
+	"github.com/99designs/gqlgen/graphql/errcode"
 	"github.com/gorilla/websocket"
 	"github.com/vektah/gqlparser/v2/gqlerror"
 
-	"github.com/99designs/gqlgen/graphql"
-	"github.com/99designs/gqlgen/graphql/errcode"
+	stdjson "encoding/json"
 )
 
 type (
@@ -328,7 +328,7 @@ func (c *wsConnection) keepAlivePongOnly(ctx context.Context) {
 			c.pongOnlyTicker.Stop()
 			return
 		case <-c.pongOnlyTicker.C:
-			c.write(&message{t: pongMessageType, payload: json.RawMessage{}})
+			c.write(&message{t: pongMessageType, payload: stdjson.RawMessage{}})
 		}
 	}
 }
@@ -352,7 +352,7 @@ func (c *wsConnection) ping(ctx context.Context) {
 			c.pingPongTicker.Stop()
 			return
 		case <-c.pingPongTicker.C:
-			c.write(&message{t: pingMessageType, payload: json.RawMessage{}})
+			c.write(&message{t: pingMessageType, payload: stdjson.RawMessage{}})
 			// The initial deadline for this method is set in run()
 			// if we have not yet received a pong, don't reset the deadline.
 			c.mu.Lock()

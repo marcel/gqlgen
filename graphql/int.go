@@ -1,10 +1,11 @@
 package graphql
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"strconv"
+
+	stdjson "encoding/json"
 )
 
 func MarshalInt(i int) Marshaler {
@@ -21,7 +22,7 @@ func UnmarshalInt(v interface{}) (int, error) {
 		return v, nil
 	case int64:
 		return int(v), nil
-	case json.Number:
+	case stdjson.Number:
 		return strconv.Atoi(string(v))
 	default:
 		return 0, fmt.Errorf("%T is not an int", v)
@@ -42,7 +43,7 @@ func UnmarshalInt64(v interface{}) (int64, error) {
 		return int64(v), nil
 	case int64:
 		return v, nil
-	case json.Number:
+	case stdjson.Number:
 		return strconv.ParseInt(string(v), 10, 64)
 	default:
 		return 0, fmt.Errorf("%T is not an int", v)
@@ -67,7 +68,7 @@ func UnmarshalInt32(v interface{}) (int32, error) {
 		return int32(v), nil
 	case int64:
 		return int32(v), nil
-	case json.Number:
+	case stdjson.Number:
 		iv, err := strconv.ParseInt(string(v), 10, 32)
 		if err != nil {
 			return 0, err

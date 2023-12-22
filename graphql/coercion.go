@@ -1,7 +1,7 @@
 package graphql
 
 import (
-	"encoding/json"
+	stdjson "encoding/json"
 )
 
 // CoerceList applies coercion from a single value to a list.
@@ -16,7 +16,7 @@ func CoerceList(v interface{}) []interface{} {
 			if len(v) > 0 {
 				vSlice = []interface{}{v[0]}
 			}
-		case []json.Number:
+		case []stdjson.Number:
 			if len(v) > 0 {
 				vSlice = []interface{}{v[0]}
 			}

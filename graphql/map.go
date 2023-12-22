@@ -1,7 +1,6 @@
 package graphql
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 )

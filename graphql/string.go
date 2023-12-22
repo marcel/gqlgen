@@ -1,10 +1,11 @@
 package graphql
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"strconv"
+
+	stdjson "encoding/json"
 )
 
 const encodeHex = "0123456789ABCDEF"
@@ -57,7 +58,7 @@ func UnmarshalString(v interface{}) (string, error) {
 		return strconv.FormatInt(v, 10), nil
 	case float64:
 		return strconv.FormatFloat(v, 'f', -1, 64), nil
-	case json.Number:
+	case stdjson.Number:
 		return string(v), nil
 	case bool:
 		if v {

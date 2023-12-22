@@ -1,7 +1,6 @@
 package transport
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 

@@ -1,6 +1,8 @@
 package graphql
 
-import "encoding/json"
+import (
+	stdjson "encoding/json"
+)
 
 // Omittable is a wrapper around a value that also stores whether it is set
 // or not.
@@ -10,8 +12,8 @@ type Omittable[T any] struct {
 }
 
 var (
-	_ json.Marshaler   = Omittable[struct{}]{}
-	_ json.Unmarshaler = (*Omittable[struct{}])(nil)
+	_ stdjson.Marshaler   = Omittable[struct{}]{}
+	_ stdjson.Unmarshaler = (*Omittable[struct{}])(nil)
 )
 
 func OmittableOf[T any](value T) Omittable[T] {

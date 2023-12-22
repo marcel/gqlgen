@@ -2,7 +2,7 @@ package graphql
 
 import (
 	"context"
-	"encoding/json"
+	stdjson "encoding/json"
 	"fmt"
 	"io"
 	"math"
@@ -25,7 +25,7 @@ func UnmarshalFloat(v interface{}) (float64, error) {
 		return float64(v), nil
 	case float64:
 		return v, nil
-	case json.Number:
+	case stdjson.Number:
 		return strconv.ParseFloat(string(v), 64)
 	default:
 		return 0, fmt.Errorf("%T is not an float", v)

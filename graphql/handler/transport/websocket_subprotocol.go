@@ -1,10 +1,11 @@
 package transport
 
 import (
-	"encoding/json"
 	"errors"
 
 	"github.com/gorilla/websocket"
+
+	stdjson "encoding/json"
 )
 
 const (
@@ -35,7 +36,7 @@ var (
 type (
 	messageType int
 	message     struct {
-		payload json.RawMessage
+		payload stdjson.RawMessage
 		id      string
 		t       messageType
 	}
